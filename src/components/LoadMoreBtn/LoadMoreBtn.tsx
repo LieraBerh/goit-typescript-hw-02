@@ -1,7 +1,10 @@
-/* eslint-disable react/prop-types */
 import s from "./LoadMoreBtn.module.css";
 
-const LoadMoreBtn = ({ onClick }) => {
+type Props = {
+  onClick: () => void;
+};
+
+const LoadMoreBtn = ({ onClick }: Props) => {
   return (
     <button onClick={onClick} className={s.load_more_btn}>
       Load More

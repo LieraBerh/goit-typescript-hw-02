@@ -1,8 +1,13 @@
-/* eslint-disable react/prop-types */
 import ImageCard from "./ImageCard/ImageCard";
 import s from "./ImageGallery.module.css";
+import { Photo } from "../../types";
 
-const ImageGallery = ({ items, handleModalOpen }) => {
+type Props = {
+  items: Photo[];
+  handleModalOpen: (img: Photo) => void;
+};
+
+const ImageGallery = ({ items, handleModalOpen }: Props) => {
   return (
     <ul className={s.gallery}>
       {items.map(({ id, urls, alt_description }) => (
@@ -10,7 +15,9 @@ const ImageGallery = ({ items, handleModalOpen }) => {
           <ImageCard
             src={urls}
             alt={alt_description}
-            handleModalOpen={handleModalOpen}
+            handleModalOpen={() =>
+              handleModalOpen({ id, urls, alt_description })
+            }
           />
         </li>
       ))}

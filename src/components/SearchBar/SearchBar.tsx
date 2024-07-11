@@ -1,14 +1,17 @@
-/* eslint-disable react/prop-types */
-
+import { FormEvent } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import s from "./SearchBar.module.css";
 
-const SearchBar = ({ onSearch }) => {
-  const handleSubmit = (evt) => {
+type Props = {
+  onSearch: (topic: string) => void;
+};
+
+const SearchBar = ({ onSearch }: Props) => {
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    const form = evt.target;
-    const topic = form.elements.topic.value;
-    if (form.elements.topic.value.trim() === "") {
+    const form = evt.target as HTMLFormElement;
+    const topic = (form.elements.namedItem("topic") as HTMLInputElement).value;
+    if (topic.trim() === "") {
       toast("Please enter search term", {
         style: {
           background: "pink",

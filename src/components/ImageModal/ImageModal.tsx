@@ -1,7 +1,9 @@
-/* eslint-disable react/prop-types */
 import s from "./ImageModal.module.css";
 import Modal from "react-modal";
+import { Photo } from "../../types";
+
 Modal.setAppElement("#root");
+
 const customStyles = {
   content: {
     top: "50%",
@@ -17,7 +19,13 @@ const customStyles = {
   },
 };
 
-export const ImageModal = ({ modalIsOpen, closeModal, selectImg }) => {
+type Props = {
+  modalIsOpen: boolean;
+  closeModal: () => void;
+  selectImg: Photo | null;
+};
+
+export const ImageModal = ({ modalIsOpen, closeModal, selectImg }: Props) => {
   return (
     <div>
       <Modal
@@ -27,8 +35,8 @@ export const ImageModal = ({ modalIsOpen, closeModal, selectImg }) => {
         contentLabel="Example Modal"
       >
         <img
-          src={selectImg?.src}
-          alt={selectImg?.alt}
+          src={selectImg?.urls.regular}
+          alt={selectImg?.alt_description}
           className={s.modal_img}
         />
       </Modal>

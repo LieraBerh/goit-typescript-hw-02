@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import fetchPhotosWithQuery from "../services/unsplashApi";
 import "./App.css";
 import ErrorMessage from "./ErrorMessage/ErrorMessage";
@@ -7,17 +7,18 @@ import { ImageModal } from "./ImageModal/ImageModal";
 import LoadMoreBtn from "./LoadMoreBtn/LoadMoreBtn";
 import Loader from "./Loader/Loader";
 import SearchBar from "./SearchBar/SearchBar";
+import { Photo } from "../types";
 
-function App() {
-  const [query, setQuery] = useState("");
-  const [photos, setPhotos] = useState([]);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const [isEmpty, setIsEmpty] = useState(false);
-  const [showLoadMore, setShowLoadMore] = useState(false);
-  const [selectImg, setSelectImg] = useState(null);
-  const [isOpenModal, setIsOpenModal] = useState(false);
+const App: React.FC = () => {
+  const [query, setQuery] = useState<string>("");
+  const [photos, setPhotos] = useState<Photo[]>([]);
+  const [error, setError] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [isEmpty, setIsEmpty] = useState<boolean>(false);
+  const [showLoadMore, setShowLoadMore] = useState<boolean>(false);
+  const [selectImg, setSelectImg] = useState<Photo | null>(null);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchPhotos = async () => {
@@ -47,7 +48,7 @@ function App() {
     }
   }, [query, page]);
 
-  const handleSearch = (topic) => {
+  const handleSearch = (topic: string) => {
     setQuery(topic);
     setPage(1);
   };
@@ -56,7 +57,7 @@ function App() {
     setPage((prevPage) => prevPage + 1);
   };
 
-  const handleModalOpen = (img) => {
+  const handleModalOpen = (img: Photo) => {
     setIsOpenModal(true);
     setSelectImg(img);
   };
@@ -88,6 +89,6 @@ function App() {
       />
     </>
   );
-}
+};
 
 export default App;
